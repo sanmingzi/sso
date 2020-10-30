@@ -6,10 +6,25 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%#= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+    <% flash.each do |name, msg| %>
+      <%= content_tag :div, msg, class: name %>
+    <% end %>
+
+    <p>
+      <%= link_to 'Home', root_path %> | 
+      <%= link_to "Sign Up", signup_path %> | 
+      <% if is_login? %>
+        <%= link_to "Logout", logout_path %> | 
+        <%= current_user.email %>
+      <% else %>
+        <%= link_to "Login", login_path %>
+      <% end %>
+    </p>
+    
     <%= yield %>
   </body>
 </html>
