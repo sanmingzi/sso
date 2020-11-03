@@ -21,6 +21,10 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def show
+    @user = User.find(params[:id])
+  end
+
   def search
     @search_key = params[:search_key]
     @users = User.where("username LIKE ? OR email LIKE ?", "%#{@search_key}%", "%#{@search_key}%")
