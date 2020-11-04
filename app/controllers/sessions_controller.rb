@@ -5,14 +5,17 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user = User.find_by_username(params[:login_name]) || User.find_by_email(params[:login_name])
-    if user && user.authenticate(params[:password])
+    login_name, password = params[:login_name], params[:password]
+    user = User.find_by_username(login_name) || User.find_by_email(login_name)
+    if user && user.authenticate(password)
       session[:user_id] = user.id
       flash[:notice] = 'Logged in!'
       redirect_to users_path
     else
       flash[:alert] = 'Login Name or Password Invalid'
-      render 'new'
+      respond_to do |format|
+        format.js
+      end
     end
   end
 

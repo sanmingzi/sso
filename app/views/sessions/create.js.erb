@@ -1,0 +1,3 @@
+var div_flash = document.getElementById("flash");
+div_flash.innerHTML = "<%= escape_javascript(render 'layouts/flash') %>";
+<% flash.delete(:alert) %>
