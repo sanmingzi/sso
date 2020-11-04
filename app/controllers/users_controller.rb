@@ -8,11 +8,9 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:notice] = 'You have sign up successfully!'
-      flash[:color] = 'valid'
+      flash[:success] = 'You have sign up successfully!'
     else
-      flash[:notice] = 'Sign up failed'
-      flash[:color] = 'invalid'
+      flash[:alert] = 'Sign up failed'
     end
     redirect_to users_path
   end

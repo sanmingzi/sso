@@ -8,7 +8,8 @@ class SessionsController < ApplicationController
     user = User.find_by_username(params[:login_name]) || User.find_by_email(params[:login_name])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      redirect_to users_path, notice: 'Logged in!'
+      flash[:notice] = 'Logged in!'
+      redirect_to users_path
     else
       flash[:alert] = 'Login Name or Password Invalid'
       render 'new'

@@ -1,0 +1,3 @@
+<% flash.each do |level, msg| %>
+  <%= content_tag :div, msg, class: flash_class(level) %>
+<% end %>
