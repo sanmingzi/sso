@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :users do
     get 'search', on: :collection
+    post 'search', on: :collection
   end
 
   resources :sessions, only: [:new, :create, :destroy]

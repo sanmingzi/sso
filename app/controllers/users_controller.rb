@@ -28,7 +28,12 @@ class UsersController < ApplicationController
   def search
     @search_key = params[:search_key]
     @users = User.where("username LIKE ? OR email LIKE ?", "%#{@search_key}%", "%#{@search_key}%")
-    render 'index'
+    respond_to do |format|
+      format.html { render 'index' }
+      format.js
+      format.xml { render xml: @users }
+      format.json { render json: @users }
+    end
   end
 
   private

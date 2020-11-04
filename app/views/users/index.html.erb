@@ -1,6 +1,25 @@
 <%= form_with(url: search_users_path, method: :get, local: true) do |f| %>
-  <%= f.text_field :search_key, value: @search_key || '' %>
-  <%= f.submit :Search %>
+  <%= f.text_field :search_key, value: @search_key %>
+  <%= f.submit :Get, class: 'btn btn-primary' %>
 <% end %>
 
-<%= render "users", users: @users %>
+</br>
+
+<%= form_with(url: search_users_path) do |f| %>
+  <%= f.text_field :search_key, value: @search_key %>
+  <%= f.submit :Post, class: 'btn btn-primary' %>
+<% end %>
+
+<table>
+  <thead>
+    <tr>
+      <td>ID</td>
+      <td>Username</td>
+      <td>Email</td>
+    </tr>
+  </thead>
+
+  <tbody id="users">
+    <%= render @users %>
+  <tbody>
+</table>
