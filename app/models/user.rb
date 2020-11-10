@@ -23,6 +23,6 @@ class User < ApplicationRecord
   end
 
   def authenticate(password)
-    self.encrypted_password == BCrypt::Engine.hash_secret(password, self.salt)
+    BCrypt::Engine.hash_secret(password, self.salt) == self.encrypted_password
   end
 end

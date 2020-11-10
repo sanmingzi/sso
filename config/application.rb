@@ -15,5 +15,13 @@ module Sso
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+
+    # Override the html when validation failed
+    # @@field_error_proc = Proc.new{ |html_tag, instance| 
+    #   "<div class=\"field_with_errors\">#{html_tag}</div>".html_safe
+    # }
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance| 
+      html_tag
+    }
   end
 end

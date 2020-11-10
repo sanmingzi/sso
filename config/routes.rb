@@ -7,6 +7,8 @@ Rails.application.routes.draw do
     post 'search', on: :collection
   end
 
+  resources :roles, only: [:new, :create, :index]
+
   resources :sessions, only: [:new, :create, :destroy]
 
   get 'signup', to: 'users#new', as: 'signup'
