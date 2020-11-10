@@ -1,2 +1,12 @@
-<h1>Roles#index</h1>
-<p>Find me in app/views/roles/index.html.erb</p>
+<table class="table table-striped mt-1 mb-1">
+  <thead class="thead-dark">
+    <tr>
+      <th>ID</th>
+      <th>Role name</th>
+    </tr>
+  </thead>
+
+  <tbody id="roles">
+    <%= render @roles %>
+  </tbody>
+</table>

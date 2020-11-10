@@ -17,6 +17,7 @@ class RolesController < ApplicationController
   end
 
   def index
+    @roles = Role.all
   end
 
   private
