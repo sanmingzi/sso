@@ -4,7 +4,7 @@ class CreatePermissions < ActiveRecord::Migration[6.0]
       t.string :name,     null: false
       t.string :action,   null: false
       t.string :resource, null: false
-      t.boolean :status, default: true
+      t.integer :status, default: 0
       t.timestamps
     end
   end
