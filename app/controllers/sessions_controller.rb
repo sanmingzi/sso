@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
     if user && user.authenticate(password)
       session[:user_id] = user.id
       flash[:notice] = 'Logged in!'
-      redirect_to users_path
+      redirect_to root_path
     else
       flash[:alert] = 'Login Name or Password Invalid'
       respond_to do |format|
