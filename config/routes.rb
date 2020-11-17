@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   resources :sessions, only: [:new, :create, :destroy]
   
   resources :actions, only: [:index]
+  resources :resources, only: [:new, :create, :index]
 end
