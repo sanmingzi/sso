@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_17_075836) do
+ActiveRecord::Schema.define(version: 2020_11_23_102408) do
 
   create_table "actions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.string "name"
@@ -20,12 +20,14 @@ ActiveRecord::Schema.define(version: 2020_11_17_075836) do
   end
 
   create_table "permissions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "action", null: false
-    t.string "resource", null: false
+    t.bigint "action_id"
+    t.bigint "resource_id"
     t.integer "status", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["action_id", "resource_id"], name: "index_permissions_on_action_id_and_resource_id", unique: true
+    t.index ["action_id"], name: "index_permissions_on_action_id"
+    t.index ["resource_id"], name: "index_permissions_on_resource_id"
   end
 
   create_table "resources", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -40,6 +42,7 @@ ActiveRecord::Schema.define(version: 2020_11_17_075836) do
     t.integer "status", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["name"], name: "index_roles_on_name", unique: true
   end
 
   create_table "roles_permissions", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -48,6 +51,7 @@ ActiveRecord::Schema.define(version: 2020_11_17_075836) do
     t.integer "status", default: 0
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["role_id", "permission_id"], name: "index_roles_permissions_on_role_id_and_permission_id", unique: true
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|

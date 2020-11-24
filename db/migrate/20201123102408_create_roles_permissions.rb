@@ -4,5 +4,7 @@ class CreateRolesPermissions < ActiveRecord::Migration[6.0]
       t.integer :status, default: 0
       t.timestamps
     end
+
+    add_index :roles_permissions, [:role_id, :permission_id], unique: true
   end
 end
