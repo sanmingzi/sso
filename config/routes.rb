@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'permissions/index'
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
   root 'home#index'
   get 'signup', to: 'users#new', as: 'signup'
@@ -10,10 +11,12 @@ Rails.application.routes.draw do
     post 'search', on: :collection
   end
 
-  resources :roles, only: [:new, :create, :index]
-
   resources :sessions, only: [:new, :create, :destroy]
   
   resources :actions, only: [:index]
   resources :resources, only: [:new, :create, :index]
+  resources :permissions, only: [:index]
+  resources :roles, only: [:new, :create, :index, :show] do
+    post 'authorize', on: :member
+  end
 end
