@@ -5,14 +5,16 @@ class ResourcesController < ApplicationController
 
   def create
     @resource = Resource.new(resource_params)
-    if @resource.save
-      flash[:success] = "Create resource #{@resource.name} successfully!"
-      redirect_to resources_path
-    else
-      flash[:alert] = "Create resource #{@resource.name} failed"
-      respond_to do |format|
-        format.js
-      end
+    ActiveRecord::Base.transaction do
+      @resource.save!
+      Permission.generate(@resource)
+    end
+    flash[:success] = "Create resource #{@resource.name} successfully!"
+    redirect_to resources_path
+  rescue ActiveRecord::RecordInvalid => exception
+    flash[:alert] = "Create resource #{@resource.name} failed"
+    respond_to do |format|
+      format.js
     end
   end
 
