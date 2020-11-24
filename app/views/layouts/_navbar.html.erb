@@ -16,7 +16,26 @@
           <%= link_to "User list", users_path, class: 'dropdown-item bg-dark text-light' %>
         </div>
       </li>
-      
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="resourcesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Resources
+        </a>
+        <div class="dropdown-menu bg-dark" aria-labelledby="resourcesDropdown">
+          <%= link_to "Create resource", new_resource_path, class: 'dropdown-item bg-dark text-light' %>
+          <%= link_to "Resource list", resources_path, class: 'dropdown-item bg-dark text-light' %>
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="permissionsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Permissions
+        </a>
+        <div class="dropdown-menu bg-dark" aria-labelledby="permissionsDropdown">
+          <%= link_to "Permission list", permissions_path, class: 'dropdown-item bg-dark text-light' %>
+        </div>
+      </li>
+
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="rolesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Roles
