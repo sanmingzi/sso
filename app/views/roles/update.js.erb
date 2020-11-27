@@ -1,0 +1,6 @@
+var div_flash = document.getElementById("flash");
+div_flash.innerHTML = "<%= escape_javascript(render 'layouts/flash') %>";
+<% flash.delete(:alert) %>
+
+var form_role = document.getElementById('form_role');
+form_role.innerHTML = "<%= escape_javascript(render 'form', role: @role) %>";
