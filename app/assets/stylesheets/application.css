@@ -14,3 +14,8 @@
  *= require_tree .
  *= require_self
  */
+
+.table th, .table td {
+  vertical-align: middle;
+  text-align: center;
+}
