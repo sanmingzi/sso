@@ -50,16 +50,14 @@ class RolesController < ApplicationController
     @role = Role.includes(:role_permissions).find(1)
     db_permission_ids = @role.role_permissions.collect { |r_p| r_p.permission_id }
 
-    # disable [@role, db_permission_ids - permission_ids]
+    # inactive [@role, db_permission_ids - permission_ids]
     (db_permission_ids - permission_ids).each do |p_id|
-      r_p = RolePermission.find_or_create_by(role_id: id, permission_id: p_id)
-      r_p.update(status: 1)
+      RolePermission.find_or_create_by(role_id: id, permission_id: p_id).inactive!
     end
 
-    # enable [@role, permission_ids]
+    # active [@role, permission_ids]
     permission_ids.each do |p_id|
-      r_p = RolePermission.find_or_create_by(role_id: id, permission_id: p_id)
-      r_p.update(status: 0)
+      RolePermission.find_or_create_by(role_id: id, permission_id: p_id).active!
     end
 
     redirect_to access_role_path(@role)
