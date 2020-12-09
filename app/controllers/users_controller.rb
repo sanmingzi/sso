@@ -37,9 +37,30 @@ class UsersController < ApplicationController
     end
   end
 
+  def edit
+    @user = User.find(id)
+  end
+
+  def update
+    @user = User.find(id)
+    if @user.update!(user_params)
+      flash[:success] = "Update user #{@user.username} (ID = #{id}) success"
+      redirect_to users_path
+    else
+      flash[:alert] = "Update user #{@user.username} (ID = #{id}) failed"
+      respond_to do |format|
+        format.js
+      end
+    end
+  end
+
   private
   
   def user_params
     params.require(:user).permit(:username, :email, :password, :password_confirmation)
+  end
+
+  def id
+    params[:id]
   end
 end

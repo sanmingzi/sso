@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   resources :users do
     get 'search', on: :collection
     post 'search', on: :collection
+    get 'access', on: :member
+    post 'authorize', on: :member
   end
 
   resources :sessions, only: [:new, :create, :destroy]

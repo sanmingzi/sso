@@ -1,5 +1,7 @@
 <%= form_with(model: user) do |f| %>
   <%= form_group_for(f, :username)%>
   <%= form_group_for(f, :email) %>
+  <%= form_group_for(f, :password) %>
+  <%= form_group_for(f, :password_confirmation) %>
   <%= f.submit :Submit, class: 'btn btn-primary' %>
 <% end %>

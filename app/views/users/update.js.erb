@@ -3,4 +3,4 @@ div_flash.innerHTML = "<%= escape_javascript(render 'layouts/flash') %>";
 <% flash.delete(:alert) %>
 
 var form_user = document.getElementById('form_user');
-form_user.innerHTML = "<%= escape_javascript(render 'signup', user: @user) %>";
+form_user.innerHTML = "<%= escape_javascript(render 'form', user: @user) %>";
