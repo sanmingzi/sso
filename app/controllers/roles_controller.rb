@@ -41,8 +41,28 @@ class RolesController < ApplicationController
     end
   end
 
-  def authorize
+  def access
     @role = Role.find(id)
+    @permissions = Permission.includes(:action, :resource)
+  end
+
+  def authorize
+    @role = Role.includes(:role_permissions).find(1)
+    db_permission_ids = @role.role_permissions.collect { |r_p| r_p.permission_id }
+
+    # disable [@role, db_permission_ids - permission_ids]
+    (db_permission_ids - permission_ids).each do |p_id|
+      r_p = RolePermission.find_or_create_by(role_id: id, permission_id: p_id)
+      r_p.update(status: 1)
+    end
+
+    # enable [@role, permission_ids]
+    permission_ids.each do |p_id|
+      r_p = RolePermission.find_or_create_by(role_id: id, permission_id: p_id)
+      r_p.update(status: 0)
+    end
+
+    redirect_to access_role_path(@role)
   end
 
   private
@@ -53,5 +73,9 @@ class RolesController < ApplicationController
 
   def id
     params[:id]
+  end
+
+  def permission_ids
+    (params[:permission_ids] || []).collect { |p_id| p_id.to_i }
   end
 end

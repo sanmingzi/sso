@@ -1,0 +1,26 @@
+<h1>Authorize role (ID = <%= @role.id %>, Name = <%= @role.name %>)</h1>
+
+<div id="form_role">  
+  <%= form_with(url: authorize_role_path(@role)) do |f| %>
+    <div class="table-responsive">
+      <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+          <th scope="col">Resource</th>
+          <th scope="col">Action</th>
+          <th scope="col">Authorize</th>
+        <thead>
+
+        <tbody>
+          <% @permissions.each do |permission| %>
+          <tr>
+            <td><%= permission.resource.name %></td>
+            <td><%= permission.action.name %></td>
+            <td><%= f.check_box :permission_ids, {multiple: true}, permission.id, nil %></td>
+          </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+    <%= f.submit 'Submit', class: 'btn btn-primary' %>
+  <% end %>
+</div>

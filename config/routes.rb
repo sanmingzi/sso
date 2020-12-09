@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :resources, only: [:new, :create, :index]
   resources :permissions, only: [:index]
   resources :roles, only: [:new, :create, :index, :edit, :update] do
+    get 'access', on: :member
     post 'authorize', on: :member
   end
 end
