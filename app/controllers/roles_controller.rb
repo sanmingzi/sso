@@ -43,6 +43,7 @@ class RolesController < ApplicationController
 
   def access
     @role = Role.find(id)
+    @active_ids = @role.role_permissions.active.collect(&:permission_id)
     @permissions = Permission.includes(:action, :resource)
   end
 
