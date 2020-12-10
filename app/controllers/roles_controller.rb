@@ -1,5 +1,6 @@
 class RolesController < ApplicationController
   def new
+    authorize Role
     @role = Role.new
   end
 
@@ -47,7 +48,7 @@ class RolesController < ApplicationController
     @permissions = Permission.includes(:action, :resource)
   end
 
-  def authorize
+  def empower
     @role = Role.includes(:role_permissions).find(1)
     db_permission_ids = @role.role_permissions.collect { |r_p| r_p.permission_id }
 

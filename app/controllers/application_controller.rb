@@ -1,4 +1,6 @@
 class ApplicationController < ActionController::Base
+  include Pundit
+
   before_action :authenticate
   helper_method :current_user, :is_login?
 
@@ -15,7 +17,7 @@ class ApplicationController < ActionController::Base
   end
 
   private
-  
+
   def authenticate
     redirect_to login_path unless is_login?
   end

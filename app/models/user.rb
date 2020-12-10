@@ -28,4 +28,8 @@ class User < ApplicationRecord
   def authenticate(password)
     BCrypt::Engine.hash_secret(password, self.salt) == self.encrypted_password
   end
+
+  def admin?
+    'admin' == self.username
+  end
 end

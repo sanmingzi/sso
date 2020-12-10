@@ -60,7 +60,7 @@ class UsersController < ApplicationController
     @active_role_ids = @user.user_roles.active.collect(&:role_id)
   end
 
-  def authorize
+  def empower
     @user = User.find(id)
     db_role_ids = @user.user_roles.active.collect(&:role_id)
 

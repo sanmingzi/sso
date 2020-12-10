@@ -10,16 +10,16 @@ Rails.application.routes.draw do
     get 'search', on: :collection
     post 'search', on: :collection
     get 'access', on: :member
-    post 'authorize', on: :member
+    post 'empower', on: :member
   end
 
   resources :sessions, only: [:new, :create, :destroy]
-  
+
   resources :actions, only: [:index]
   resources :resources, only: [:new, :create, :index]
   resources :permissions, only: [:index]
   resources :roles, only: [:new, :create, :index, :edit, :update] do
     get 'access', on: :member
-    post 'authorize', on: :member
+    post 'empower', on: :member
   end
 end
