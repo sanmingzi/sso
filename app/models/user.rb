@@ -11,6 +11,9 @@ class User < ApplicationRecord
   before_save :encrypt_password
   after_save :clear_password
 
+  has_many :user_roles
+  has_many :roles, through: :user_roles
+
   def encrypt_password
     if password.present?
       self.salt = BCrypt::Engine.generate_salt

@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   skip_before_action :authenticate, only: [:new, :create]
-  
+
   def new
     @user = User.new
   end
@@ -54,13 +54,41 @@ class UsersController < ApplicationController
     end
   end
 
+  def access
+    @user = User.find(id)
+    @roles = Role.active
+    @active_role_ids = @user.user_roles.active.collect(&:role_id)
+  end
+
+  def authorize
+    @user = User.find(id)
+    db_role_ids = @user.user_roles.active.collect(&:role_id)
+
+    # inactive user_role
+    (db_role_ids - role_ids).each do |role_id|
+      UserRole.find_or_create_by(user_id: id, role_id: role_id).inactive!
+    end
+
+    # active user_role
+    role_ids.each do |role_id|
+      UserRole.find_or_create_by(user_id: id, role_id: role_id).active!
+    end
+
+    flash[:success] = "Authorize user #{@user.username} (ID = #{id}) success"
+    redirect_to users_path
+  end
+
   private
-  
+
   def user_params
     params.require(:user).permit(:username, :email, :password, :password_confirmation)
   end
 
   def id
     params[:id]
+  end
+
+  def role_ids
+    params[:role_ids]
   end
 end
