@@ -1,6 +1,8 @@
 require 'digest/sha1'
 
 class User < ApplicationRecord
+  include Statusable
+
   attr_accessor :password
 
   EMAIL_REGEX = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}/i
@@ -13,6 +15,7 @@ class User < ApplicationRecord
 
   has_many :user_roles
   has_many :roles, through: :user_roles
+  has_many :role_permissions, through: :roles
   has_many :permissions, through: :roles
 
   def encrypt_password

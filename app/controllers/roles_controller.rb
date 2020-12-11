@@ -49,7 +49,7 @@ class RolesController < ApplicationController
   end
 
   def empower
-    @role = Role.includes(:role_permissions).find(1)
+    @role = Role.includes(:role_permissions).find(id)
     db_permission_ids = @role.role_permissions.collect { |r_p| r_p.permission_id }
 
     # inactive [@role, db_permission_ids - permission_ids]
