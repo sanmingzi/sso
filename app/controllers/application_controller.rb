@@ -4,6 +4,10 @@ class ApplicationController < ActionController::Base
   before_action :authenticate
   helper_method :current_user, :is_login?
 
+  def pundit_user
+    UserContext.new(current_user, session)
+  end
+
   def current_user
     if session[:user_id]
       @current_user ||= User.find(session[:user_id])

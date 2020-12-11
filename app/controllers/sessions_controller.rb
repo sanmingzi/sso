@@ -9,6 +9,8 @@ class SessionsController < ApplicationController
     user = User.find_by_username(login_name) || User.find_by_email(login_name)
     if user && user.authenticate(password)
       session[:user_id] = user.id
+      session[:roles] = user.roles.collect(&:name)
+      session[:permissions] = user.permissions.collect(&:name)
       flash[:notice] = 'Logged in!'
       redirect_to root_path
     else

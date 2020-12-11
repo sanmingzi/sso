@@ -6,7 +6,7 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item"><%= link_to 'Home', root_path, class: "nav-link text-light" %></li>
-      
+
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="usersDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Users
@@ -41,11 +41,11 @@
           Roles
         </a>
         <div class="dropdown-menu bg-dark" aria-labelledby="rolesDropdown">
-          <%= link_to "Create role", new_role_path, class: 'dropdown-item bg-dark text-light' %>
-          <%= link_to "Role list", roles_path, class: 'dropdown-item bg-dark text-light' %>
+          <%= link_to "Create role", new_role_path, class: 'dropdown-item bg-dark text-light' if policy(Role).new? %>
+          <%= link_to "Role list", roles_path, class: 'dropdown-item bg-dark text-light' if policy(Role).index? %>
         </div>
       </li>
-      
+
       <% if is_login? %>
         <li class="nav-item"><%= link_to "Logout", logout_path, class: "nav-link" %></li>
         <li class="nav-item"><%= link_to "#{current_user.email}", user_path(current_user.id), class: "nav-link" %></li>

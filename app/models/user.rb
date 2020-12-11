@@ -13,6 +13,7 @@ class User < ApplicationRecord
 
   has_many :user_roles
   has_many :roles, through: :user_roles
+  has_many :permissions, through: :roles
 
   def encrypt_password
     if password.present?
