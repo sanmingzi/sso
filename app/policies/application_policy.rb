@@ -19,7 +19,7 @@ class ApplicationPolicy
   end
 
   def create?
-    nil != user && (is_admin? || has_permission?('create_role'))
+    nil != user && (is_admin? || has_permission?("create_#{resource_name}"))
   end
 
   def new?
@@ -48,6 +48,12 @@ class ApplicationPolicy
 
   def has_permission?(p)
     session[:permissions].include?(p)
+  end
+
+  def resource_name
+    class_name = record.class.name
+    class_name = record.name if record.is_a? Class
+    class_name.demodulize.underscore
   end
 
   class Scope
