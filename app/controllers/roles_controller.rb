@@ -10,7 +10,7 @@ class RolesController < ApplicationController
       flash[:success] = 'Create role success!'
       redirect_to roles_path
     else
-      flash[:notice] = 'Create role failed'
+      flash[:alert] = 'Create role failed'
       respond_to do |format|
         format.js
       end
@@ -19,6 +19,7 @@ class RolesController < ApplicationController
 
   def index
     @roles = Role.all
+    @role = Role.new
   end
 
   def show

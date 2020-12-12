@@ -89,6 +89,6 @@ class UsersController < ApplicationController
   end
 
   def role_ids
-    (params[:role_ids] || []).collect(&:to_id)
+    (params[:role_ids] || []).collect(&:to_i)
   end
 end

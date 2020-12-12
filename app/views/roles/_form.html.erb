@@ -1,4 +1,6 @@
-<%= form_with(model: role) do |f| %>
-  <%= form_group_for(f, :name, label_text: 'Role name', placeholder: 'Role name') %>
-  <%= f.submit 'Submit', class: 'btn btn-primary' %>
+<%= form_with(model: role, class: 'form-inline mt-1') do |f| %>
+  <%= form_group_for(f, :name, label: false)  do %>
+    <%= f.text_field(:name, value: role.name, placeholder: 'Create Role', class: "form-control #{ 'is-invalid' if role.errors[:name].present? }") %>
+  <% end %>
+  <%= f.submit 'Submit', class: 'btn btn-primary ml-1' %>
 <% end %>
