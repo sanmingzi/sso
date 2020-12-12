@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:success] = 'You have sign up successfully!'
-      redirect_to root_path
+      redirect_to access_user_path(@user)
     else
       flash[:alert] = 'Sign up failed'
       respond_to do |format|

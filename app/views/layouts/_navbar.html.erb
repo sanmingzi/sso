@@ -12,38 +12,21 @@
           Users
         </a>
         <div class="dropdown-menu bg-dark" aria-labelledby="usersDropdown">
-          <%= link_to "Create user", new_user_path, class: 'dropdown-item bg-dark text-light' %>
-          <%= link_to "User list", users_path, class: 'dropdown-item bg-dark text-light' %>
+          <%= link_to "Create user", new_user_path, class: 'dropdown-item bg-dark text-light' if policy(User).create? %>
+          <%= link_to "User list", users_path, class: 'dropdown-item bg-dark text-light' if policy(User).index? %>
         </div>
       </li>
 
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="resourcesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Resources
-        </a>
-        <div class="dropdown-menu bg-dark" aria-labelledby="resourcesDropdown">
-          <%= link_to "Create resource", new_resource_path, class: 'dropdown-item bg-dark text-light' %>
-          <%= link_to "Resource list", resources_path, class: 'dropdown-item bg-dark text-light' %>
-        </div>
+      <li class="nav-item">
+        <%= link_to "Roles", roles_path, class: 'nav-link' if policy(Role).index? %>
       </li>
 
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="permissionsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Permissions
-        </a>
-        <div class="dropdown-menu bg-dark" aria-labelledby="permissionsDropdown">
-          <%= link_to "Permission list", permissions_path, class: 'dropdown-item bg-dark text-light' %>
-        </div>
+      <li class="nav-item">
+        <%= link_to "Permissions", permissions_path, class: 'nav-link' if policy(Permission).index? %>
       </li>
 
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="rolesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Roles
-        </a>
-        <div class="dropdown-menu bg-dark" aria-labelledby="rolesDropdown">
-          <%= link_to "Create role", new_role_path, class: 'dropdown-item bg-dark text-light' if policy(Role).new? %>
-          <%= link_to "Role list", roles_path, class: 'dropdown-item bg-dark text-light' if policy(Role).index? %>
-        </div>
+      <li class="nav-item">
+        <%= link_to "Resources", resources_path, class: 'nav-link' if policy(Resource).index? %>
       </li>
 
       <% if is_login? %>
