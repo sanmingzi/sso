@@ -76,6 +76,6 @@ class RolesController < ApplicationController
   end
 
   def permission_ids
-    (params[:permission_ids] || []).collect { |p_id| p_id.to_i }
+    (params[:permission_ids] || []).collect(&:to_i)
   end
 end
