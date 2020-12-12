@@ -12,6 +12,7 @@ class SessionsController < ApplicationController
       session[:roles] = user.user_roles.active.collect(&:role_name)
       session[:permissions] = user.role_permissions.active.collect(&:permission_name)
       flash[:notice] = 'Logged in!'
+      Rails.cache.write("#{user.id}_session_id", session.id)
       redirect_to root_path
     else
       flash[:alert] = 'Login Name or Password Invalid'

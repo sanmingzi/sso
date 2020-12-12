@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    if session[:user_id]
+    if session[:user_id] && is_latest_session?
       @current_user ||= User.find(session[:user_id])
     else
       @current_user = nil
@@ -24,5 +24,9 @@ class ApplicationController < ActionController::Base
 
   def authenticate
     redirect_to login_path unless is_login?
+  end
+
+  def is_latest_session?
+    session.id.to_s == Rails.cache.read("#{session[:user_id]}_session_id").to_s
   end
 end
