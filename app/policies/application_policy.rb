@@ -19,23 +19,35 @@ class ApplicationPolicy
   end
 
   def create?
-    nil != user && (is_admin? || has_permission?("create_#{resource_name}"))
+    authorized?(__method__)
   end
 
   def new?
     create?
   end
 
+  def retrieve?
+    authorized?(__method__)
+  end
+
+  def search?
+    retrieve?
+  end
+
   def update?
-    user.admin?
+    authorized?(__method__)
   end
 
   def edit?
     update?
   end
 
+  def delete?
+    authorized?(__method__)
+  end
+
   def destroy?
-    user.admin?
+    delete?
   end
 
   def is_admin?
@@ -50,10 +62,18 @@ class ApplicationPolicy
     session[:permissions].include?(p)
   end
 
+  def action_name(method)
+    method.to_s.chop
+  end
+
   def resource_name
     class_name = record.class.name
     class_name = record.name if record.is_a? Class
     class_name.demodulize.underscore
+  end
+
+  def authorized?(method)
+    nil != user && (is_admin? || has_permission?("#{action_name(method)}_#{resource_name}"))
   end
 
   class Scope
