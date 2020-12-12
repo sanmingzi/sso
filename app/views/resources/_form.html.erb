@@ -1,4 +1,6 @@
-<%= form_with(model: resource) do |f| %>
-  <%= form_group_for(f, :name) %>
-  <%= f.submit :Create, class: 'btn btn-primary' %>
+<%= form_with(model: resource, class: 'form-inline') do |f| %>
+  <%= form_group_for(f, :name, label: false) do %>
+    <%= f.text_field(:name, value: resource.name, class: "form-control #{'is-invalid' if resource.errors[:name].present? }")%>
+  <% end %>
+  <%= f.submit :Create, class: 'btn btn-primary ml-1' %>
 <% end %>

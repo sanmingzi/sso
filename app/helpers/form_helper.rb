@@ -13,7 +13,7 @@ module FormHelper
     content_tag :div, class: "form-group" do
       concat form.label(field, label_text, class: 'control-label') if label
       if block_given?
-        yield
+        concat capture(&block)
       else
         concat form.text_field(field, value: value, class: "form-control #{'is-invalid' if is_invalid }", placeholder: placeholder)
       end
