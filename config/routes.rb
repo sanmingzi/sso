@@ -17,7 +17,9 @@ Rails.application.routes.draw do
 
   resources :actions, only: [:index]
   resources :resources, only: [:new, :create, :index]
-  resources :permissions, only: [:index]
+  resources :permissions, only: [:index] do
+    post 'search', on: :collection
+  end
   resources :roles, only: [:new, :create, :index, :edit, :update] do
     get 'access', on: :member
     post 'empower', on: :member

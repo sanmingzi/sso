@@ -1,5 +1,14 @@
 <h1>Permissions</h1>
 
+<% if policy(Permission).retrieve? %>
+  <%= form_with(url: search_permissions_path, class: 'form-inline mt-1 mb-1') do |f| %>
+    <div class='form-group'>
+      <%= f.text_field :search_key, value: @search_key, class: 'form-control' %>
+    </div>
+    <%= f.submit 'Submit', class: 'btn btn-primary ml-1' %>
+  <% end %>
+<% end %>
+
 <table class="table table-dark table-striped">
   <thead class="thead-dark">
     <tr>
