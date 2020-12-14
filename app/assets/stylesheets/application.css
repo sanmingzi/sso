@@ -18,4 +18,6 @@
 .table th, .table td {
   vertical-align: middle;
   text-align: center;
+  padding: 5px;
+  line-height: 30px;
 }
