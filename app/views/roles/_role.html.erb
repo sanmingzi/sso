@@ -2,7 +2,9 @@
   <th scope='row'><%= role.id %></th>
   <td><%= role.name %></td>
   <td>
-    <%= link_to "Edit", edit_role_path(role), class: 'btn btn-primary' %>
-    <%= link_to "Access", access_role_path(role), class: 'btn btn-primary' %>
+  <div class="btn-group">
+    <%= button_to "Edit", edit_role_path(role), class: 'btn btn-primary' %>
+    <%= button_to "Access", access_role_path(role), class: 'btn btn-primary' %>
+  </div>
   </td>
 </tr>

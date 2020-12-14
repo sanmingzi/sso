@@ -1,16 +1,9 @@
 <% if policy(User).retrieve? %>
-  <%= form_with(url: search_users_path, method: :get, local: true, class: 'form-inline mt-1 mb-1') do |f| %>
-    <div class='form-group'>
-      <%= f.text_field :search_key, value: @search_key, class: 'form-control' %>
-    </div>
-    <%= f.submit :Get, class: 'btn btn-primary ml-1' %>
-  <% end %>
-
   <%= form_with(url: search_users_path, class: 'form-inline mt-1 mb-1') do |f| %>
     <div class='form-group'>
-      <%= f.text_field :search_key, value: @search_key, class: 'form-control' %>
+      <%= f.text_field :search_key, value: @search_key, placeholder: 'Search User', class: 'form-control' %>
     </div>
-    <%= f.submit :Post, class: 'btn btn-primary ml-1' %>
+    <%= f.submit 'Submit', class: 'btn btn-primary ml-1' %>
   <% end %>
 <% end %>
 

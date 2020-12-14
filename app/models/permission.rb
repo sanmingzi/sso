@@ -5,6 +5,8 @@ class Permission < ApplicationRecord
   belongs_to :resource
   validates :action_id, uniqueness: {scope: :resource_id}
 
+  scope :order_by_resource, -> { order("resources.name DESC") }
+
   class << self
     def generate(resource)
       Action.all.each do |action|

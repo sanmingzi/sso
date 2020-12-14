@@ -4,8 +4,10 @@
   <td><%= user.email %></td>
   <% if policy(User).update? %>
     <td>
-      <%= link_to "Edit", edit_user_path(user), class: 'btn btn-primary' %>
-      <%= link_to "Access", access_user_path(user), class: 'btn btn-primary' %>
+    <div class="btn-group">
+      <%= button_to "Edit", edit_user_path(user), method: :get, local: true, class: 'btn btn-primary' %>
+      <%= button_to "Access", access_user_path(user), method: :get, local: true, class: 'btn btn-primary' %>
+    </div>
     </td>
   <% end %>
 </tr>

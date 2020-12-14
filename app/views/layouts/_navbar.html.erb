@@ -22,11 +22,11 @@
       </li>
 
       <li class="nav-item">
-        <%= link_to "Permissions", permissions_path, class: 'nav-link' if policy(Permission).index? %>
+        <%= link_to "Resources", resources_path, class: 'nav-link' if policy(Resource).index? %>
       </li>
 
       <li class="nav-item">
-        <%= link_to "Resources", resources_path, class: 'nav-link' if policy(Resource).index? %>
+        <%= link_to "Permissions", permissions_path, class: 'nav-link' if policy(Permission).index? %>
       </li>
 
       <% if is_login? %>
