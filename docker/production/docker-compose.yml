@@ -23,7 +23,7 @@ services:
       REDIS_CACHE_URL: 'redis://127.0.0.1:6379/0/cache'
       REDIS_SESSION_URL: 'redis://127.0.0.1:6379/0/session'
     working_dir: /workspace/sso
-    command: /bin/sh -c "env RAILS_ENV=production bundle exec rails db:migrate && bundle exec rails db:seed"
+    command: /bin/sh -c "env RAILS_ENV=production bundle exec rails db:migrate && env RAILS_ENV=production bundle exec rails db:seed"
 
   sso_production:
     image: 103.14.34.141:5000/sanmingzi/sso:1.0.0
