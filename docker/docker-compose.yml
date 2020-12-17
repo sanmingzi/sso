@@ -6,41 +6,7 @@ services:
       context: ../
       network: host
       dockerfile: ./docker/Dockerfile
-    image: windmill_knight/sso:1.0.0
-
-  sso_db_setup:
-    image: windmill_knight/sso:1.0.0
-    container_name: sso_db_setup
+    image: 103.14.34.141:5000/sanmingzi/sso:1.0.0
+    container_name: sso
     network_mode: "host"
-    environment:
-      RAILS_SERVE_STATIC_FILES: 'true'
-      SSO_DATABASE_URL: 'mysql2://root:root@127.0.0.1/sso_production'
-      REDIS_CACHE_URL: 'redis://127.0.0.1:6379/0/cache'
-      REDIS_SESSION_URL: 'redis://127.0.0.1:6379/0/session'
-    working_dir: /workspace/sso
-    command: bash -c "env RAILS_ENV=production bundle exec rails db:setup && bundle exec rails db:migrate && bundle exec rails db:seed"
-
-  sso_db_init:
-    image: windmill_knight/sso:1.0.0
-    container_name: sso_db_init
-    network_mode: "host"
-    environment:
-      RAILS_SERVE_STATIC_FILES: 'true'
-      SSO_DATABASE_URL: 'mysql2://root:root@127.0.0.1/sso_production'
-      REDIS_CACHE_URL: 'redis://127.0.0.1:6379/0/cache'
-      REDIS_SESSION_URL: 'redis://127.0.0.1:6379/0/session'
-    working_dir: /workspace/sso
-    command: bash -c "env RAILS_ENV=production bundle exec rails db:migrate && bundle exec rails db:seed"
-
-  sso_production:
-    image: windmill_knight/sso:1.0.0
-    container_name: sso_production
-    network_mode: "host"
-    restart: always
-    environment:
-      RAILS_SERVE_STATIC_FILES: 'true'
-      SSO_DATABASE_URL: 'mysql2://root:root@127.0.0.1/sso_production'
-      REDIS_CACHE_URL: 'redis://127.0.0.1:6379/0/cache'
-      REDIS_SESSION_URL: 'redis://127.0.0.1:6379/0/session'
-    working_dir: /workspace/sso
-    command: env RAILS_ENV=production bundle exec rails s -b 0.0.0.0 -p 80
+    command: /bin/sh -c "top -b"
