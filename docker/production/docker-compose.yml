@@ -2,10 +2,11 @@ version: "3.4"
 
 services:
   sso_db_reset:
-    image: 103.14.34.141:5000/sanmingzi/sso:1.0.0
+    image: localhost:5000/sanmingzi/sso:1.0.0
     container_name: sso_db_reset
     network_mode: "host"
     environment:
+      DISABLE_DATABASE_ENVIRONMENT_CHECK: '1'
       RAILS_SERVE_STATIC_FILES: 'true'
       SSO_DATABASE_URL: 'mysql2://root:root@127.0.0.1/sso_production'
       REDIS_CACHE_URL: 'redis://127.0.0.1:6379/0/cache'
@@ -14,7 +15,7 @@ services:
     command: /bin/sh -c "env RAILS_ENV=production bundle exec rails db:reset"
 
   sso_db_setup:
-    image: 103.14.34.141:5000/sanmingzi/sso:1.0.0
+    image: localhost:5000/sanmingzi/sso:1.0.0
     container_name: sso_db_setup
     network_mode: "host"
     environment:
@@ -26,7 +27,7 @@ services:
     command: /bin/sh -c "env RAILS_ENV=production bundle exec rails db:setup"
 
   sso_db_init:
-    image: 103.14.34.141:5000/sanmingzi/sso:1.0.0
+    image: localhost:5000/sanmingzi/sso:1.0.0
     container_name: sso_db_init
     network_mode: "host"
     environment:
@@ -38,7 +39,7 @@ services:
     command: /bin/sh -c "env RAILS_ENV=production bundle exec rails db:migrate && env RAILS_ENV=production bundle exec rails db:seed"
 
   sso_production:
-    image: 103.14.34.141:5000/sanmingzi/sso:1.0.0
+    image: localhost:5000/sanmingzi/sso:1.0.0
     container_name: sso_production
     network_mode: "host"
     restart: always
