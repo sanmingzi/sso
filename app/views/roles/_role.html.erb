@@ -3,8 +3,8 @@
   <td><%= role.name %></td>
   <td>
   <div class="btn-group">
-    <%= button_to "Edit", edit_role_path(role), class: 'btn btn-primary' %>
-    <%= button_to "Access", access_role_path(role), class: 'btn btn-primary' %>
+    <%= button_to "Edit", edit_role_path(role), method: :get, local: true, class: 'btn btn-primary' %>
+    <%= button_to "Access", access_role_path(role), method: :get, local: true, class: 'btn btn-primary' %>
   </div>
   </td>
 </tr>
