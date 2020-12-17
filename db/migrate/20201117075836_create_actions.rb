@@ -5,5 +5,7 @@ class CreateActions < ActiveRecord::Migration[6.0]
       t.integer :status, default: 0
       t.timestamps
     end
+
+    add_index :actions, :name, unique: true
   end
 end

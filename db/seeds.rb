@@ -8,4 +8,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Action.create([{ name: 'all' }, { name: 'create' }, { name: 'retrieve' }, { name: 'update' }, { name: 'delete' }])
+['create', 'retrieve', 'update', 'delete'].each do |name|
+  Action.find_or_create_by(name: name)
+end
