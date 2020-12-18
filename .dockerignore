@@ -1,9 +1,9 @@
 .vscode
 docker
 .dockerignore
-node_modules/*
+node_modules
 .git*
 log/*.log
 tmp/*
-vendor/*
+vendor
 .browserslistrc
