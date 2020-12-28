@@ -9,6 +9,20 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'capybara/rspec'
 require 'support/database_cleaner'
+require "selenium/webdriver"
+
+Capybara.register_driver :selenium do |app|
+  Capybara::Selenium::Driver.load_selenium
+  client = Selenium::WebDriver::Remote::Http::Default.new
+  chrome_capabilities = Selenium::WebDriver::Remote::Capabilities.chrome(
+    "chromeOptions": { args: %w(headless) }
+  )
+  options = {browser: :remote, url: 'http://0.0.0.0:4444/wd/hub', http_client: client, desired_capabilities: chrome_capabilities}
+  Capybara::Selenium::Driver.new(app, options)
+end
+
+Capybara.default_max_wait_time = 5
+Capybara.javascript_driver = :selenium
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are

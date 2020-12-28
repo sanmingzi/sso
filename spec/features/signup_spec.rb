@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature 'signup' do
+feature 'signup', js: true do
   def signup(username, email, password, password_confirmation)
     visit signup_path
     fill_in 'user_username', with: username
@@ -10,15 +10,16 @@ feature 'signup' do
     click_button 'commit'
   end
 
-  scenario 'success' do
-    signup('test', 'test@test.com', '123456', '123456')
-    expect(page).to have_content('sign up successfully')
-  end
-
-  scenario 'with empty username' do
+  scenario 'with empty username', js: true do
+    signup('', 'test@test.com', '123456', '123456')
+    expect(page).to have_content('Sign up failed')
+    expect(page).to have_content('username can\'t be blank')
   end
 
   scenario 'with empty email' do
+    signup('test', '', '123456', '123456')
+    expect(page).to have_content('Sign up failed')
+    expect(page).to have_content('email can\'t be blank')
   end
 
   scenario 'with format error email' do
@@ -28,5 +29,10 @@ feature 'signup' do
   end
 
   scenario 'with not match password confirmation' do
+  end
+
+  scenario 'success' do
+    signup('test', 'test@test.com', '123456', '123456')
+    expect(page).to have_content('sign up successfully')
   end
 end
