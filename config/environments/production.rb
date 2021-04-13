@@ -56,8 +56,6 @@ Rails.application.configure do
   # Use a different cache store in production.
   # config.cache_store = :mem_cache_store
   config.active_record.cache_versioning = false
-  config.cache_store = :redis_store, (ENV['REDIS_CACHE_URL'] || '').split(','), {expires_in: 90.minutes}
-  config.session_store :redis_store, servers: (ENV['REDIS_SESSION_URL'] || '').split(','), expire_after: 90.minutes, key: '_sso_session'
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter     = :resque

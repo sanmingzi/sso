@@ -1,4 +1,5 @@
 <%= form_with(url: sessions_url) do |f| %>
+  <%= f.text_field :redirect_url, type: 'hidden', value: @redirect_url if @redirect_url %>
   <div class='form-group'>
     <label>Login name</label>
     <%= f.text_field :login_name, class: 'form-control', placeholder: 'Username / Email' %>
