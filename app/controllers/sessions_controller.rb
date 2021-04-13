@@ -11,7 +11,7 @@ class SessionsController < ApplicationController
     login_name, password = params[:login_name], params[:password]
     user = User.find_by_username(login_name) || User.find_by_email(login_name)
     if user && user.authenticate(password)
-      session[:user_id] = user.id
+      session[:user] = [:id, :username, :email].inject({}) { |rtn, attr| rtn[attr] = user[attr]; rtn }
       session[:roles] = user.user_roles.active.collect(&:role_name)
       session[:permissions] = user.role_permissions.active.collect(&:permission_name)
       flash[:notice] = 'Logged in!'
@@ -26,7 +26,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:user_id] = nil
+    session[:user] = nil
     redirect_to login_path, notice: 'Logged out!'
   end
 
