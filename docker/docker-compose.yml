@@ -1,12 +1,41 @@
 version: "3.4"
 
 services:
+  # docker-compose build sso_db_setup
+  # docker-compose up sso_db_setup
+  sso_db_setup:
+    build:
+      context: ../
+      network: host
+      dockerfile: ./docker/Dockerfile
+    image: "${IMAGE_NAME}:${TAG}"
+    container_name: "sso_db_setup_${TAG}"
+    network_mode: host
+    environment:
+      RAILS_ENV: "${RAILS_ENV}"
+      DISABLE_DATABASE_ENVIRONMENT_CHECK: '1'
+      SSO_DATABASE_URL: "${SSO_DATABASE_URL}"
+      SECRET_KEY_BASE: "${SECRET_KEY_BASE}"
+    working_dir: /workspace/sso
+    command: /bin/sh -c "bundle exec rails db:setup && bundle exec rails db:migrate && bundle exec rails db:seed"
+
+  # docker-compose up -d sso
   sso:
     build:
       context: ../
       network: host
       dockerfile: ./docker/Dockerfile
-    image: 103.14.34.141:5000/sanmingzi/sso:1.0.0
-    container_name: sso
+    image: "${IMAGE_NAME}:${TAG}"
+    container_name: "sso_${TAG}"
+    restart: always
     network_mode: "host"
-    command: /bin/sh -c "top -b"
+    environment:
+      RAILS_ENV: "${RAILS_ENV}"
+      RAILS_LOG_TO_STDOUT: 'true'
+      DISABLE_DATABASE_ENVIRONMENT_CHECK: '1'
+      RAILS_SERVE_STATIC_FILES: 'true'
+      SSO_DATABASE_URL: "${SSO_DATABASE_URL}"
+      REDIS_CACHE_URL: "${REDIS_CACHE_URL}"
+      REDIS_SESSION_URL: "${REDIS_SESSION_URL}"
+      SECRET_KEY_BASE: "${SECRET_KEY_BASE}"
+    command: bundle exec rails s -b 0.0.0.0 -p 9010
